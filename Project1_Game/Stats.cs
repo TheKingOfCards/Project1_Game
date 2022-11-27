@@ -1,5 +1,5 @@
 public class Stats{
-    public float critChance;
+    public float critChance = 20;
     public float armour = 0.9f;
-    public int xpAmount = 1; 
+    public float xpMultiplier = 1; 
 }

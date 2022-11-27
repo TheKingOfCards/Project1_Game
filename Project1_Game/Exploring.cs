@@ -1,16 +1,56 @@
 public class Exploring
 {
     Player player = new();
-    bool[,] map = new bool[9, 9];
+    GameManager gM;
+    bool[,] map = new bool[8, 8];
+    public bool isExploring = false;
+
+
+    public Exploring(GameManager gM)
+    {
+        this.gM = gM;
+
+//The players y and x cords
+        player.playerX = 1;
+        player.playerY = 6;
 
 //places the rooms
-    public Exploring()
-    {
-        map[2, 3] = true;
-        map[3, 3] = true;
-        map[4, 3] = true;
+        map[1, 1] = true;
+        map[2, 1] = true;
+        map[3, 1] = true;
+        map[4, 1] = true;
+        map[5, 1] = true;
+        map[5, 1] = true;
         map[5, 3] = true;
+        map[4, 3] = true;
+        map[3, 3] = true;
+        map[2, 3] = true;
+        map[2, 3] = true;
+        map[6, 3] = true;
+        map[6, 2] = true;
+        map[6, 1] = true;
+        map[4, 6] = true;
+        map[4, 5] = true;
+        map[4, 4] = true;
+        map[1, 5] = true;
+        map[2, 5] = true;
+        map[3, 5] = true;
+        map[1, 6] = true;
+        map[5, 5] = true;
+        map[6, 5] = true;
+
     }
+
+
+    public void Start()
+    {
+        Console.WriteLine("You will know start exploring");
+        Console.ReadKey();
+        gM.ClearConsole();
+        this.DrawMap();
+    }
+
+
 
 //Draws the map and where the player is
     public void DrawMap()
@@ -23,7 +63,7 @@ public class Exploring
                 {
                     if (player.playerX == x && player.playerY == y)
                     {
-                        Console.Write("8");
+                        Console.Write("1");
                     }
                     else
                     {
@@ -38,13 +78,72 @@ public class Exploring
             }
             Console.WriteLine();
         }
+        
+        if(isExploring == true)
+        {
+            this.Update();
+        }
     }
 
-//Checks movement and sends the player to fight 
+
     public void Update()
     {
-        // om flyttar åt höger
-        // Kolla om det finns ett rum där.
-        // x++
+        string text = gM.player.playerText;
+    
+//Checks movement and moves the player to the right room 
+        bool isMoving = true;
+        while(isMoving == true)
+        {
+            text = Console.ReadLine();
+
+            if(text == "forward")
+            {
+                if(map[player.playerX,player.playerY - 1] == true)
+                {
+                    player.playerY--;
+                    gM.ClearConsole();
+                    this.DrawMap();
+                }else 
+                {
+                    Console.WriteLine("You can't go that way");
+                }
+            }else if(text == "back")
+            {
+                if(map[player.playerX,player.playerY + 1] == true)
+                {
+                    player.playerY++;
+                    gM.ClearConsole();
+                    this.DrawMap();
+                }else 
+                {
+                    Console.WriteLine("You can't go that way");
+                }
+            }else if(text == "right")
+            {
+                if(map[player.playerX + 1,player.playerY] == true)
+                {
+                    player.playerX++;
+                    gM.ClearConsole();
+                    this.DrawMap();
+                }else 
+                {
+                    Console.WriteLine("You can't go that way");
+                }
+            }else if(text == "left")
+            {
+                if(map[player.playerX - 1,player.playerY] == true)
+                {
+                    player.playerX--;
+                    gM.ClearConsole();
+                    this.DrawMap();
+                }else 
+                {
+                    Console.WriteLine("You can't go that way");
+                }
+            }else
+            {
+                Console.WriteLine("Try something else");
+            }
+        }
     }
 }
