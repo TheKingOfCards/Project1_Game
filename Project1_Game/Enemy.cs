@@ -1,9 +1,11 @@
 public class Enemy{
     public string name;
     public int hp;
-    public int damage;
-    public bool bloodSuck;
-    public bool berserk;
+    public int minDamage;
+    public int maxDamage;
+    public bool dead;
+    public bool bloodLoss;
+    public bool troll;
     public bool xpSteal;
     public bool werewolfSwitch;
 }

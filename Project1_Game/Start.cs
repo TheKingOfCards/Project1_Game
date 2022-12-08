@@ -51,17 +51,28 @@ public class Start{
             gM.player.weapon = "sword";
             System.Console.WriteLine("You chose the sword");
             weaponChoosing = false;
-
+            gM.player.minDamage = 4;
+            gM.player.maxDamage = 7;
+            gM.player.normalMissChance = 10;
+            gM.player.heavyMissChance = 20;
         }    
         else if(gM.player.playerText.ToLower() == "axe"){
             gM.player.weapon = "axe";
             System.Console.WriteLine("You chose the axe");
             weaponChoosing = false;
+            gM.player.minDamage = 8;
+            gM.player.maxDamage = 11;
+            gM.player.normalMissChance = 20;
+            gM.player.heavyMissChance = 40;
         }
         else if(gM.player.playerText.ToLower() == "dagger"){
             gM.player.weapon = "dagger";
             System.Console.WriteLine("You chose the dagger");
             weaponChoosing = false;
+            gM.player.minDamage = 2;
+            gM.player.maxDamage = 5;
+            gM.player.normalMissChance = 0;
+            gM.player.heavyMissChance = 10;
         }
         else{
             System.Console.WriteLine("Try something else");
@@ -86,7 +97,7 @@ public class Start{
         gM.exploring.DrawMap();
         Console.WriteLine("\nThis is the map");
         Console.WriteLine("1 = you\n0 = rooms\n# = no room");
-        Console.WriteLine("Write \"forward\", \"back\", \"left\" and \"right\" to move");
+        Console.WriteLine("Write \"w\" to go up, \"s\" to go down, \"a\" to go left, \"d\" to go right");
         Console.WriteLine("When you are exploring you can write \"stats\" to see which stats you can upgrade (this will not work during fights)");
         Console.WriteLine("When you are exploring you might encounter diffrent monsters or treause");
     }
@@ -102,7 +113,7 @@ public class Start{
     Console.ReadKey();
 
     gM.currentState = GameManager.States.exploring;
-    gM.exploring.isExploring = true;
+    gM.exploring.tutorialDone = true;
     gM.SetState();
     }
 

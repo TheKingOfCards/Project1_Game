@@ -3,7 +3,8 @@ public class Exploring
     Player player = new();
     GameManager gM;
     bool[,] map = new bool[8, 8];
-    public bool isExploring = false;
+    public bool tutorialDone = false;
+    Random generator = new();
 
 
     public Exploring(GameManager gM)
@@ -44,8 +45,9 @@ public class Exploring
 
     public void Start()
     {
-        Console.WriteLine("You will know start exploring");
+        Console.WriteLine("You will now start exploring");
         Console.ReadKey();
+        gM.fighting.isFighting = false;
         gM.ClearConsole();
         this.DrawMap();
     }
@@ -79,66 +81,121 @@ public class Exploring
             Console.WriteLine();
         }
         
-        if(isExploring == true)
+        if(tutorialDone == true)
         {
             this.Update();
         }
     }
 
 
+    int monsterCountdown = 2;
     public void Update()
     {
         string text = gM.player.playerText;
+        int monsterChance;
+
     
 //Checks movement and moves the player to the right room 
         bool isMoving = true;
         while(isMoving == true)
         {
-            text = Console.ReadLine();
+            text = Console.ReadKey().KeyChar.ToString();
 
-            if(text == "forward")
+            if(text.ToLower() == "w")
             {
                 if(map[player.playerX,player.playerY - 1] == true)
                 {
                     player.playerY--;
+                    if(monsterCountdown <= 0)
+                    {
+                        monsterChance = generator.Next(0,4);
+                        if(monsterChance == 0)
+                        {
+                            monsterCountdown = 2;
+                            gM.currentState = GameManager.States.fighting;
+                            gM.SetState();
+                        }
+                    }else
+                    {
+                        monsterCountdown--;
+                    }
                     gM.ClearConsole();
                     this.DrawMap();
                 }else 
                 {
                     Console.WriteLine("You can't go that way");
                 }
-            }else if(text == "back")
+            }else if(text.ToLower() == "s")
             {
                 if(map[player.playerX,player.playerY + 1] == true)
                 {
                     player.playerY++;
+                    if(monsterCountdown <= 0)
+                    {
+                        monsterChance = generator.Next(0,4);
+                        if(monsterChance == 0)
+                        {
+                            monsterCountdown = 2;
+                            gM.currentState = GameManager.States.fighting;
+                            gM.SetState();
+                        }
+                    }else
+                    {
+                        monsterCountdown--;
+                    }
                     gM.ClearConsole();
                     this.DrawMap();
                 }else 
                 {
                     Console.WriteLine("You can't go that way");
                 }
-            }else if(text == "right")
+            }else if(text.ToLower() == "d")
             {
                 if(map[player.playerX + 1,player.playerY] == true)
                 {
                     player.playerX++;
+                    if(monsterCountdown <= 0)
+                    {
+                        monsterChance = generator.Next(0,4);
+                        if(monsterChance == 0)
+                        {
+                            monsterCountdown = 2;
+                            gM.currentState = GameManager.States.fighting;
+                            gM.SetState();
+                        }
+                    }else
+                    {
+                        monsterCountdown--;
+                    }
                     gM.ClearConsole();
                     this.DrawMap();
                 }else 
                 {
                     Console.WriteLine("You can't go that way");
                 }
-            }else if(text == "left")
+            }else if(text.ToLower() == "a")
             {
                 if(map[player.playerX - 1,player.playerY] == true)
                 {
                     player.playerX--;
+                    if(monsterCountdown <= 0)
+                    {
+                        monsterChance = generator.Next(0,4);
+                        if(monsterChance == 0)
+                        {
+                            monsterCountdown = 2;
+                            gM.currentState = GameManager.States.fighting;
+                            gM.SetState();
+                        }
+                    }else
+                    {
+                        monsterCountdown--;
+                    }
                     gM.ClearConsole();
                     this.DrawMap();
                 }else 
                 {
-                    Console.WriteLine("You can't go that way");
+                    Console.WriteLine("\nYou can't go that way");
                 }
             }else
             {

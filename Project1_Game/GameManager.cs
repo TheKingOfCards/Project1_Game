@@ -2,17 +2,19 @@ public class GameManager{
 //Creates an instance of every class
     public Player player = new();
     public Enemy enemy = new();
+    public Stats stats = new();
     public Fighting fighting;
     public Exploring exploring;
     public Start start;
-    public Dead dead = new();
-    public States currentState = States.start;
+    public Dead dead;
+    public States currentState;
 
     public GameManager()
     {
         start = new(this);
         fighting = new(this);
         exploring = new(this);
+        dead = new(this);
     }
 
 
@@ -42,6 +44,11 @@ public class GameManager{
     public void ClearConsole()
     {
         Console.Clear();
+        Console.WriteLine($"{player.name}  HP:{player.hp}  Stamina:{player.stamina}  Potions:{player.healthpotions}  Weapon:{player.weapon} xp{player.xp}");
+        if(fighting.isFighting == true)
+        {
+            Console.WriteLine($"{enemy.name} hp:{enemy.hp}");
+        }
     }
 
 
