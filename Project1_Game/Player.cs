@@ -1,6 +1,6 @@
 public class Player{
-    public int hp = 10;
-    public  int baseHP = 10;
+    public int hp = 15;
+    public  int baseHP = 15;
     public int minDamage;
     public int maxDamage;
     public int stamina = 5;
@@ -9,6 +9,7 @@ public class Player{
     public int normalMissChance;
     public int heavyMissChance;
     public int critChance = 20;
+    public int critMultiplayier;
     public int xp;
     public string weapon;
     public string name = "";

@@ -1,3 +1,9 @@
+//Create new instances of every class
+//Make a while loop that handles which state the game is in 
+//Make a clear console method that will delete everything and add player stats and enemy stats if fighting is true
+//Make a enum that has all of the states that the game can be in
+
+
 public class GameManager{
 //Creates an instance of every class
     public Player player = new();
@@ -44,7 +50,7 @@ public class GameManager{
     public void ClearConsole()
     {
         Console.Clear();
-        Console.WriteLine($"{player.name}  HP:{player.hp}  Stamina:{player.stamina}  Potions:{player.healthpotions}  Weapon:{player.weapon} xp{player.xp}");
+        Console.WriteLine($"{player.name}  HP:{player.hp}  Stamina:{player.stamina}  Potions:{player.healthpotions}  Weapon:{player.weapon} xp:{player.xp}");
         if(fighting.isFighting == true)
         {
             Console.WriteLine($"{enemy.name} hp:{enemy.hp}");
@@ -55,7 +61,7 @@ public class GameManager{
 //The diffrent states the player can be in
     public enum States
     {
-    dead, exploring, fighting, start
+        dead, exploring, fighting, start
     }
 
 }

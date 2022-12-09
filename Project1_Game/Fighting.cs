@@ -82,6 +82,7 @@ public class Fighting
             int missChance = generator.Next(0,100);
             int critical = generator.Next(0,100);
             int damage = generator.Next(gM.player.minDamage, gM.player.maxDamage);
+            int heavyDamage = damage * 2;
             
 
 
@@ -90,7 +91,7 @@ public class Fighting
                 gM.player.hp -= 2;
             }
 
-             if(gM.player.hp <= 0)
+            if(gM.player.hp <= 0)
                 {
                     Console.BackgroundColor = ConsoleColor.Black;
                     Console.Clear();
@@ -111,8 +112,8 @@ public class Fighting
                     {
                         if(critical > gM.player.critChance)
                         {
-                            gM.enemy.hp -= damage * 2;
-                            Console.WriteLine($"A cirtical hit! You dealt the monster {damage}");
+                            gM.enemy.hp -= damage * gM.player.critMultiplayier;
+                            Console.WriteLine($"A cirtical hit! You dealt the monster {damage * gM.player.critMultiplayier}");
                             playerAction = false;
                         }else{
                             gM.enemy.hp -= damage;
@@ -126,19 +127,11 @@ public class Fighting
                     }
                 }else if(text.ToLower() == "heavy") //Heavy attack start
                 {
-                    if(missChance <= gM.player.heavyMissChance)
+                    if(missChance >= gM.player.heavyMissChance)
                     {
-                        if(critical > gM.player.critChance)
-                        {
-                            gM.enemy.hp -= damage * 2;
-                            Console.WriteLine($"A cirtical hit! You dealt the monster {damage}");
-                            playerAction = false; 
-                        }else
-                        {
-                            gM.enemy.hp -= damage; 
-                            Console.WriteLine($"You dealt the monster {damage} damage");
-                            playerAction = false;
-                        }
+                        gM.enemy.hp -= heavyDamage; 
+                        Console.WriteLine($"You dealt the monster {heavyDamage} damage");
+                        playerAction = false;
                     }else
                     {
                         Console.WriteLine("You missed the monster");
@@ -157,25 +150,28 @@ public class Fighting
                 {
                     Console.WriteLine("Try something else");
                 }
-         //Countdown if player is fighting a troll
-            if(trollCountdown == 0 && gM.enemy.troll == true)
-            {
-                
-                this.EnemyTurn();
-            }else
-            {
-                playerAction = true;
-                trollCountdown--;
-                Console.ReadKey();
-                gM.ClearConsole();
-            }
+            
+
+            //Countdown if player is fighting a troll
+                if(trollCountdown == 0 && gM.enemy.troll == true)
+                {
+                    Console.ReadKey();
+                    gM.ClearConsole();
+                    this.EnemyTurn();
+                }else if(gM.enemy.troll == false)
+                {
+                    Console.ReadKey();
+                    gM.ClearConsole();
+                    this.EnemyTurn();
+                }else
+                {
+                    playerAction = true;
+                    trollCountdown--;
+                    Console.ReadKey();
+                    gM.ClearConsole();
+                }
             }
 
-        
-            if(gM.enemy.troll == false)
-            {
-                this.EnemyTurn();
-            }
         }
 
     
@@ -205,8 +201,8 @@ public class Fighting
             if(gM.enemy.hp <= 0)
             {
                 gM.enemy.hp = 0;
-                gM.ClearConsole();
                 Console.BackgroundColor = ConsoleColor.Black;
+                gM.ClearConsole();
                 int xpGivePlayer = generator.Next(10,16);
                 
                 Console.WriteLine("You killed the monster");
@@ -215,10 +211,6 @@ public class Fighting
                 Console.ReadKey();
                 gM.currentState = GameManager.States.exploring;
                 gM.SetState();
-            }else
-            {
-                Console.ReadKey();
-                gM.ClearConsole();
             }
 
 

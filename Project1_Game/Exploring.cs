@@ -197,6 +197,9 @@ public class Exploring
                 {
                     Console.WriteLine("\nYou can't go that way");
                 }
+            }else if(text.ToLower() == "i")
+            {
+                gM.stats.Update();
             }else
             {
                 Console.WriteLine("Try something else");

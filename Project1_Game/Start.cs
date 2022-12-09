@@ -8,7 +8,7 @@ public class Start{
     public void Update(){
     //Titlescreen
     System.Console.WriteLine("Welcome to an unfinished game");
-    System.Console.WriteLine("Write start too continue");
+    System.Console.WriteLine("Write \"start\" too continue");
     bool startedGame = true;
     
     while(startedGame == true){
@@ -39,7 +39,7 @@ public class Start{
     //Weapon choosing
     System.Console.WriteLine("Choose your weapon by writing the name of it");
     System.Console.WriteLine("\nThe Axe: A heavy hitter dealing high damage but it has a change of missing \nit's target becasue of the heavy wheight. It also has a low crit chance");
-    System.Console.WriteLine("\nThe Dagger: Dealing low damge but will always hit the target.\nIt also has a high crit chance and the crits deal more damage");
+    System.Console.WriteLine("\nThe Dagger: Dealing low damge but will always hit the target on a normal attack.\nIt also has a high crit chance and the crits deal more damage");
     System.Console.WriteLine("\nThe Sword: Being a middle ground of the previous weapons, it deals middle \ndamage and has a low chance of missing. It has a less crit chance then \nthe dagger but higher than the axe");
     
     bool weaponChoosing = true;
@@ -55,6 +55,7 @@ public class Start{
             gM.player.maxDamage = 7;
             gM.player.normalMissChance = 10;
             gM.player.heavyMissChance = 20;
+            gM.player.critMultiplayier = 2;
         }    
         else if(gM.player.playerText.ToLower() == "axe"){
             gM.player.weapon = "axe";
@@ -64,6 +65,7 @@ public class Start{
             gM.player.maxDamage = 11;
             gM.player.normalMissChance = 20;
             gM.player.heavyMissChance = 40;
+            gM.player.critMultiplayier = 2;
         }
         else if(gM.player.playerText.ToLower() == "dagger"){
             gM.player.weapon = "dagger";
@@ -73,6 +75,7 @@ public class Start{
             gM.player.maxDamage = 5;
             gM.player.normalMissChance = 0;
             gM.player.heavyMissChance = 10;
+            gM.player.critMultiplayier = 3;
         }
         else{
             System.Console.WriteLine("Try something else");
@@ -88,9 +91,9 @@ public class Start{
         Console.Clear();
         Console.WriteLine("First we start with what you can do (do not type anything just press a key when you are done reading)");
         Console.WriteLine("Write \"attack\" to attack the monster");
-        Console.WriteLine("\nWrite \"heavy\" to make a heavy attack, however these have a chance to miss");
+        Console.WriteLine("\nWrite \"heavy\" to make a heavy attack, however these have a chance to miss and cannot crit");
         Console.WriteLine("\nWrite \"block\" to use the shield");
-        Console.WriteLine("\nWrite heal to use healing items (you start out with 2 healpotions that replenish every fight)");
+        Console.WriteLine("\nWrite \"heal\" to use healing items (you start out with 2 healpotions that replenish every fight)");
         Console.WriteLine("\nWhen you are fighting you also have 5 stamina points, a normal attack costs 1 stamina and a heavy costs 2, blocking \ncosts none and you also restore your stamina while doing it");
         Console.ReadKey();
         Console.Clear();
@@ -98,8 +101,8 @@ public class Start{
         Console.WriteLine("\nThis is the map");
         Console.WriteLine("1 = you\n0 = rooms\n# = no room");
         Console.WriteLine("Write \"w\" to go up, \"s\" to go down, \"a\" to go left, \"d\" to go right");
-        Console.WriteLine("When you are exploring you can write \"stats\" to see which stats you can upgrade (this will not work during fights)");
-        Console.WriteLine("When you are exploring you might encounter diffrent monsters or treause");
+        Console.WriteLine("When you are exploring you can press \"i\" to see which stats you can upgrade (this will not work during fights)");
+        Console.WriteLine("When you are exploring you might encounter diffrent monsters, kill them to keep moving forward");
     }
 
 
@@ -116,8 +119,4 @@ public class Start{
     gM.exploring.tutorialDone = true;
     gM.SetState();
     }
-
-
-
-
 }
