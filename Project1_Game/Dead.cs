@@ -8,7 +8,7 @@ public class Dead{
         this.gM = gM;
     }
 
-    public void Update(){
+    public void Update(){                
         Console.WriteLine("You have died");
         Console.ReadKey();
         Console.Clear();

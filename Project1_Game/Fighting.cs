@@ -23,7 +23,6 @@ public class Fighting
         isFighting = true;
         Console.BackgroundColor = ConsoleColor.DarkRed;
 
-
         //Creating enemy based on name
         if(gM.enemy.name == "Troll")
         {
@@ -88,6 +87,7 @@ public class Fighting
 
             if(bloodlossSuccess == true)
             {
+                Console.WriteLine("You took 2 damage beacuse of the bloodloss effect");
                 gM.player.hp -= 2;
             }
 
@@ -146,13 +146,12 @@ public class Fighting
                 }else if(text.ToLower() == "heal" && gM.player.healthpotions == 0)
                 {
                     Console.WriteLine("You don't have any healthpotions left");
-                }else
+                }else if(text.ToLower() == "block")
                 {
-                    Console.WriteLine("Try something else");
+                    playerAction = false;
+                    this.EnemyTurn(); 
                 }
-            
-
-            //Countdown if player is fighting a troll
+    //Countdown if player is fighting a troll
                 if(trollCountdown == 0 && gM.enemy.troll == true)
                 {
                     Console.ReadKey();
@@ -170,8 +169,7 @@ public class Fighting
                     Console.ReadKey();
                     gM.ClearConsole();
                 }
-            }
-
+            } 
         }
 
     
@@ -182,9 +180,10 @@ public class Fighting
             int enemyAbilityChance = generator.Next(0,100);
 
 
-    //checks if bloodloss was succesfull and checks if player died becuase of it
+    //Checks if bloodloss was succesfull and checks if player died becuase of it
             if(bloodlossSuccess == true)
             {
+                Console.WriteLine("You took 2 damage beacuse of the bloodloss effect");
                 gM.player.hp -= 2;
 
                 if(gM.player.hp <= 0)
@@ -200,10 +199,17 @@ public class Fighting
     //Checks if the enemy is dead and sends the player back to exploring
             if(gM.enemy.hp <= 0)
             {
+    //Resets enemy ability and troll countdown bools
+                gM.enemy.bloodLoss = false;
+                bloodlossSuccess = false;
+                gM.enemy.troll = false;
+                gM.enemy.werewolfSwitch = false;
+                gM.enemy.xpSteal = false;
+
                 gM.enemy.hp = 0;
                 Console.BackgroundColor = ConsoleColor.Black;
                 gM.ClearConsole();
-                int xpGivePlayer = generator.Next(10,16);
+                int xpGivePlayer = generator.Next(5,16);
                 
                 Console.WriteLine("You killed the monster");
                 Console.WriteLine($"You received {xpGivePlayer} xp");
@@ -239,7 +245,7 @@ public class Fighting
                 if(gM.enemy.bloodLoss == true)
                 {
                 
-                    if(enemyAbilityChance < 20) //10% chance
+                    if(enemyAbilityChance < 20 && bloodlossSuccess == false) //20% chance
                     {
                         Console.WriteLine("When the vampire attacked you he also bit you and applied the effect bloodloss");
                         Console.WriteLine("You will now lose a small amount of health every round");

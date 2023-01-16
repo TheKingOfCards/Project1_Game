@@ -48,13 +48,14 @@ public class Exploring
         Console.WriteLine("You will now start exploring");
         Console.ReadKey();
         gM.fighting.isFighting = false;
+        gM.player.hp = gM.player.baseHP;
         gM.ClearConsole();
         this.DrawMap();
     }
 
 
 
-//Draws the map and where the player is
+//Draws the map and where the player is (I did not write this code)
     public void DrawMap()
     {
         for (var y = 0; y < map.GetLength(1); y++)
@@ -197,9 +198,6 @@ public class Exploring
                 {
                     Console.WriteLine("\nYou can't go that way");
                 }
-            }else if(text.ToLower() == "i")
-            {
-                gM.stats.Update();
             }else
             {
                 Console.WriteLine("Try something else");

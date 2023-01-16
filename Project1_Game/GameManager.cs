@@ -8,7 +8,6 @@ public class GameManager{
 //Creates an instance of every class
     public Player player = new();
     public Enemy enemy = new();
-    public Stats stats = new();
     public Fighting fighting;
     public Exploring exploring;
     public Start start;
